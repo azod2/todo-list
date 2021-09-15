@@ -1,8 +1,9 @@
 const express = require('express')
+const mongoose = require('mongoose') // 載入 mongoose
+
 const app = express()
 const port = 3000
 
-const mongoose = require('mongoose') // 載入 mongoose
 mongoose.connect('mongodb://localhost/todo-list') // 設定連線到 mongoDB
 //取得資料庫連線狀態
 const db = mongoose.connection
