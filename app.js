@@ -1,8 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose') // 載入 mongoose
+const exphbs = require('express-handlebars');
 
 const app = express()
 const port = 3000
+
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
 
 mongoose.connect('mongodb://localhost/todo-list') // 設定連線到 mongoDB
 //取得資料庫連線狀態
@@ -17,7 +21,7 @@ db.once('open', () => {
 })
 
 app.get('/', (req, res) => {
-    console.log('todo list')
+    res.render('index')
 })
 
 app.listen(3000,() => {
