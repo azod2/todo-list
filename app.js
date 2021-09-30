@@ -3,6 +3,7 @@ const mongoose = require('mongoose') // 載入 mongoose
 const exphbs = require('express-handlebars');
 const Todo = require('./models/todo') // 載入 Todo model
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 const app = express()
 const port = 3000
@@ -23,6 +24,9 @@ db.on('error', () => {
 db.once('open', () => {
     console.log('mongodb connected!')
 })
+
+//轉換PUT跟DELETE
+app.use(methodOverride('_method'))
 
 app.get('/', (req, res) => {
     Todo.find() // 取出 Todo model 裡的所有資料
@@ -59,7 +63,7 @@ app.get('/todos/new', (req, res) => {
       .catch(error => console.log(error))
   })
 
-  app.post('/todos/:id/edit', (req, res) => {
+  app.post('/todos/:id', (req, res) => {
     const id = req.params.id
     // const name = req.body.name
     const { name, isDone } = req.body //解構賦值
@@ -73,7 +77,7 @@ app.get('/todos/new', (req, res) => {
       .catch(error => console.log(error))
   })
 
-  app.post('/todos/:id/delete', (req, res) => {
+  app.post('/todos/:id', (req, res) => {
     const id = req.params.id
     return Todo.findById(id)
       .then(todo => todo.remove())
