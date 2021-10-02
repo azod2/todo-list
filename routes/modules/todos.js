@@ -4,6 +4,9 @@ const router = express.Router()
 
 const Todo = require('../../models/todo')
 
+router.get('/new', (req, res) => {
+    return res.render('new')
+  })
 router.post('/', (req, res) => {
       const name = req.body.name       // 從 req.body 拿出表單裡的 name 資料
       return Todo.create({ name })     // 存入資料庫
@@ -11,9 +14,6 @@ router.post('/', (req, res) => {
       .catch(error => console.log(error))
     })
     
-    router.get('/new', (req, res) => {
-        return res.render('new')
-      })
       router.get('/:id', (req, res) => {
     const id = req.params.id
     return Todo.findById(id)
