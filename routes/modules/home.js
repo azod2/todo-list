@@ -3,7 +3,6 @@ const express = require('express')
 const router = express.Router()
 // 引用 Todo model
 const Todo = require('../../models/todo')
-console.log('home into')
 // 定義首頁路由
 router.get('/', (req, res) => {
   Todo.find()
